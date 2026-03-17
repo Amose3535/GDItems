@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="ItemContainer" load_steps=3 format=3 uid="uid://7vi8wt7kienq"]
+
+[ext_resource type="Script" uid="uid://7d0cy2jnfwi1" path="res://addons/gditems/scripts/classes/Item_stack.gd" id="1_5yyxf"]
+[ext_resource type="Script" uid="uid://bp0d7f0b6f4ow" path="res://addons/gditems/scripts/classes/item_container.gd" id="2_m7pr2"]
+
+[resource]
+script = ExtResource("2_m7pr2")
+metadata/_custom_type_script = "uid://bp0d7f0b6f4ow"
