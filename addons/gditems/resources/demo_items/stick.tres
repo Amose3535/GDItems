@@ -1,14 +1,11 @@
-[gd_resource type="Resource" script_class="Item" load_steps=7 format=3 uid="uid://bguy0f0cdl1i5"]
+[gd_resource type="Resource" script_class="Item" load_steps=6 format=3 uid="uid://bguy0f0cdl1i5"]
 
 [ext_resource type="Script" uid="uid://ct0wnjptf3q8u" path="res://addons/gditems/scripts/classes/item_components/item_component.gd" id="1_bdgft"]
 [ext_resource type="Script" uid="uid://cgxjhi2lbvdij" path="res://addons/gditems/scripts/classes/Item.gd" id="2_3n8pj"]
 [ext_resource type="Texture2D" uid="uid://c8yqnqxf67dmm" path="res://icon.svg" id="2_4s78o"]
-[ext_resource type="Script" uid="uid://c4e2gpx2k1ciy" path="res://addons/gditems/scripts/classes/item_components/spam_hello.gd" id="2_bpccd"]
 [ext_resource type="PackedScene" uid="uid://ylj4gypi8buw" path="res://addons/gditems/scenes/item_scenes/stick/stick_dropped.tscn" id="3_4s78o"]
 
-[sub_resource type="Resource" id="Resource_ct8mb"]
-script = ExtResource("2_bpccd")
-metadata/_custom_type_script = "uid://c4e2gpx2k1ciy"
+[sub_resource type="PackedScene" id="PackedScene_bpccd"]
 
 [resource]
 script = ExtResource("2_3n8pj")
@@ -19,7 +16,7 @@ flavor_text = "branch"
 max_stack = 2
 icon = ExtResource("2_4s78o")
 scenes = Dictionary[String, PackedScene]({
-"drop": ExtResource("3_4s78o")
+"drop": ExtResource("3_4s78o"),
+"hand": SubResource("PackedScene_bpccd")
 })
-components = Array[ExtResource("1_bdgft")]([SubResource("Resource_ct8mb")])
 metadata/_custom_type_script = "uid://cgxjhi2lbvdij"

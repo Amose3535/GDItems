@@ -12,22 +12,23 @@ class_name WorldItem3D
 		item_stack = new_stack
 		# If the item node is instantiate, delete it, clear it, then assign the new stack 
 		_reset_item_node()
+		_build_context()
+		_link_item_context()
 		_instantiate_item_scene()
 
 @export_tool_button("Refresh Item","FlipWinding") var _refresh_item_button:= _refresh_item
 
+## The actual node of the item
 var _item_node: Node = null
-var _context: Dictionary[String, Variant] = {}:
-	set(new_context):
-		_context = new_context
-## The current event being recieved by the WorldItem3D. To have a one-shot string (like for context creation) use get_and_discard_event()
-var _event: String = ""
+## The context that WorldItem3D generates for himself which is lateched onto item stacks and then propagated to the item components
+var _context: Dictionary[String, Variant] = {}
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	_build_context() # Create a first context
 	_link_item_context() # Link the current context to the item_stack context
 	_instantiate_item_scene()
+	
 	if Engine.is_editor_hint():
 		# Insert Editor only code here
 		return
@@ -35,27 +36,33 @@ func _ready() -> void:
 
 # Called every physics frame. 'delta' is the elapsed time since the previous physics frame.
 func _physics_process(delta: float) -> void:
+	if Engine.is_editor_hint():
+		# Editor only code
+		return
+	# Skips if item_stack is null
+	if item_stack == null: return
 	item_stack._physics_process_item(delta)
+
+## Function responsible for propagating downstream the name of the event.
+func _propagate_event(event:String) -> void:
+	if Engine.is_editor_hint():
+		# Editor only code
+		return
+	# Skips if the item_stack is null
+	if item_stack == null: return
+	item_stack._dispatch_event(event)
 
 func _build_context() -> void:
 	# The owner of that item is the dropped item instance
-	_context[Item.CONTEXT_OWNER_ID] = self
+	_context[Item.CONTEXT_OWNER] = self
 	# The mode of the item is dropped / ground mode
-	_context[Item.CONTEXT_MODE_ID] = Item.ITEM_MODE_WORLD
-	# The current event (it will get cleared during this call so from the next line it's unsafe to access _event
-	_context[Item.CONTEXT_EVENTS_ID] = get_and_discard_event() 
-	# DO NOT ACCESS _event from here onward, or you might expect something but end up with ""
+	_context[Item.CONTEXT_MODE] = Item.ITEM_MODE_WORLD
 
 func _link_item_context() -> void:
 	if item_stack == null: return
 	# No need to do more than once considering dictionaries are passed by reference, so any modification here leads to a modification downstream.
 	item_stack._context = _context 
 
-## This function is like get("event") but discards it right before returning it.
-func get_and_discard_event() -> String:
-	var tmp: String = _event
-	_event = ""
-	return tmp
 
 func _instantiate_item_scene() -> void:
 	# Skip if this node isn't inside tree yet.
@@ -82,6 +89,10 @@ func _reset_item_node() -> void:
 	if _item_node != null:
 			_item_node.queue_free()
 			_item_node = null
+	if Engine.is_editor_hint():
+		# editor only code goes here
+		return
+	_context.clear()
 
 func _refresh_item() -> void:
 	_reset_item_node()

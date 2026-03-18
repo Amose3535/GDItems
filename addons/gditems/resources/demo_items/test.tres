@@ -1,9 +1,15 @@
-[gd_resource type="Resource" script_class="Item" load_steps=5 format=3 uid="uid://dik7q5usiqmna"]
+[gd_resource type="Resource" script_class="Item" load_steps=7 format=3 uid="uid://dik7q5usiqmna"]
 
 [ext_resource type="Script" uid="uid://ct0wnjptf3q8u" path="res://addons/gditems/scripts/classes/item_components/item_component.gd" id="1_e6vv8"]
+[ext_resource type="Script" uid="uid://c4e2gpx2k1ciy" path="res://addons/gditems/scripts/classes/item_components/spam_hello.gd" id="2_o312d"]
 [ext_resource type="Script" uid="uid://cgxjhi2lbvdij" path="res://addons/gditems/scripts/classes/Item.gd" id="2_srol6"]
-[ext_resource type="Texture2D" uid="uid://c8yqnqxf67dmm" path="res://icon.svg" id="2_swj4t"]
-[ext_resource type="PackedScene" uid="uid://ylj4gypi8buw" path="res://addons/gditems/scenes/item_scenes/stick/stick_dropped.tscn" id="3_swj4t"]
+[ext_resource type="Texture2D" uid="uid://dckb74kd5o6mg" path="res://addons/gditems/assets/images/fuaahh.png" id="3_o312d"]
+[ext_resource type="PackedScene" uid="uid://d0mecvp5crtgk" path="res://addons/gditems/scenes/item_scenes/test/test_dropped.tscn" id="4_g3ohf"]
+
+[sub_resource type="Resource" id="Resource_0k7e4"]
+script = ExtResource("2_o312d")
+print_pos = false
+metadata/_custom_type_script = "uid://c4e2gpx2k1ciy"
 
 [resource]
 script = ExtResource("2_srol6")
@@ -11,8 +17,9 @@ id = "test"
 name = "Testing item"
 description = "An item made to test its functionalities"
 flavor_text = "*Testing*"
-icon = ExtResource("2_swj4t")
+icon = ExtResource("3_o312d")
 scenes = Dictionary[String, PackedScene]({
-"drop": ExtResource("3_swj4t")
+"drop": ExtResource("4_g3ohf")
 })
+components = Array[ExtResource("1_e6vv8")]([SubResource("Resource_0k7e4")])
 metadata/_custom_type_script = "uid://cgxjhi2lbvdij"

@@ -27,7 +27,7 @@ func _init(_item:Item = null, _amount:int = 1) -> void:
 	_cache_components()
 
 
-## This is tghe equivalent of _physics_process(delta: float) but for Item resources. Considering that resources don't have a native _physics_process() then it's up to the container to call this function.
+## This is the equivalent of _physics_process(delta: float) but for Item resources. Considering that resources don't have a native _physics_process() then it's up to the container to call this function.
 func _physics_process_item(delta: float) -> void:
 	_internal_time += delta
 	var threshold: float = (0 if tick_rate == -1 or tick_rate == 0 else (1/(tick_rate as float)))
@@ -38,19 +38,17 @@ func _physics_process_item(delta: float) -> void:
 		for component:TickingComponent in ticking_cache:
 			component.execute(_context)
 
+
 ## The function which is triggered when an even happens. Depending on the container
-func _dispatch_event(event_name: String, event_context: Dictionary[String, Variant] = _context) -> void:
+func _dispatch_event(event_name: String, event_context: Dictionary[String, Variant] = _context.duplicate()) -> void:
 	if event_cache.is_empty(): 
 		if !_is_cached: _cache_components()
 		else:
 			return # Early return if there's no event component and the cache is already built
-	
 	# Skips unneeded events
 	if !event_cache.has(event_name): return
-	
 	# Add event name to the context passed to the event component. Could be redundant but adds strength to the code in case of future refactorings
-	if !event_context.has(Item.CONTEXT_EVENTS_ID): event_context[Item.CONTEXT_EVENTS_ID] = event_name
-	
+	if !event_context.has(Item.CONTEXT_EVENT): event_context[Item.CONTEXT_EVENT] = event_name
 	# Finally call the execute function of such component with the proper event context
 	for event_component in event_cache[event_name]:
 		event_component.execute(event_context)
@@ -60,7 +58,11 @@ func _dispatch_event(event_name: String, event_context: Dictionary[String, Varia
 #region caching
 ## Function to cache components. Calls the functions for each specific component type
 func _cache_components() -> void:
+	# Skips caching if there's no item to cache
+	if item == null: return
+	# Skips cachinf if it's already cached
 	if _is_cached: return
+	
 	_is_cached = true
 	
 	# Cache ticking components
@@ -73,6 +75,7 @@ func _cache_components() -> void:
 
 ## Caches TickingComponents of the relative Item. Whenever a new resource is created or it's processing the components of the item for the first time, it's gonna save the ticking components into an array and process them if there's any. For this reason, the lesser the amount of items which require a ticking component, the better.
 func _cache_ticking_components() -> void:
+	if item == null: return # Redundant check
 	var item_components: Array[ItemComponent] = item.components
 	for component:ItemComponent in item_components:
 		if component is TickingComponent:
@@ -80,6 +83,7 @@ func _cache_ticking_components() -> void:
 
 ## Caches EventComponents of the relative Item. Whenever a new resource is created or it's processing the components of the item for the first time, it's gonna save the event components into an array and process them during the corresponding event.
 func _cache_event_components() -> void:
+	if item == null: return # Redundant check
 	var item_components: Array[ItemComponent] = item.components
 	for component:ItemComponent in item_components:
 		if component is EventComponent:

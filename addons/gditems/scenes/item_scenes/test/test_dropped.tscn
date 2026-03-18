@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://d0mecvp5crtgk"]
+
+[ext_resource type="Texture2D" uid="uid://dckb74kd5o6mg" path="res://addons/gditems/assets/images/fuaahh.png" id="1_v4y4l"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_knbcf"]
+albedo_texture = ExtResource("1_v4y4l")
+
+[sub_resource type="SphereMesh" id="SphereMesh_fd34j"]
+material = SubResource("StandardMaterial3D_knbcf")
+
+[node name="MeshInstance3D" type="MeshInstance3D"]
+transform = Transform3D(0.25115773, 0, 0, 0, -1.0978454e-08, -0.25115773, 0, 0.25115773, -1.0978454e-08, 0, 0, 0)
+mesh = SubResource("SphereMesh_fd34j")

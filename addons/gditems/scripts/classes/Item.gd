@@ -12,11 +12,11 @@ const ITEM_MODE_HELD: String = "hand"
 const ITEM_MODE_WORN: String = "equip"
 
 ## The name that the context identifier for the wner should be
-const CONTEXT_OWNER_ID: String = "owner"
+const CONTEXT_OWNER: String = "owner"
 ## The name that the context identifier for the events should be
-const CONTEXT_EVENTS_ID: String = "event"
+const CONTEXT_EVENT: String = "event"
 ## The name that the context identifier for the item mode should be
-const CONTEXT_MODE_ID: String = "item_mode"
+const CONTEXT_MODE: String = "item_mode"
 
 ## The rarity of the item. It doesn't do anything on its own other than deco.
 enum ItemRarity {

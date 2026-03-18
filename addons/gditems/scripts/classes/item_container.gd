@@ -51,7 +51,7 @@ func _physics_process_items(delta: float) -> void:
 ## Function used to propagate events onto items of such container
 func _dispatch_event_items(event_name: String, event_context: Dictionary[String, Variant] = _context) -> void:
 	# Add event name to the context passed to the item. Could be redundant but adds strength to the code in case of future refactorings
-	if !event_context.has(Item.CONTEXT_EVENTS_ID): event_context[Item.CONTEXT_EVENTS_ID] = event_name
+	if !event_context.has(Item.CONTEXT_EVENT): event_context[Item.CONTEXT_EVENT] = event_name
 	
 	# If no such event is present in the active item stacks, skip
 	if !_active_event_stacks.has(event_name): return
