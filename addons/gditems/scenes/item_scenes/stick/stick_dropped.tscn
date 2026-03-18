@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://ylj4gypi8buw"]
+
+[ext_resource type="Script" uid="uid://d63cvd7xr834" path="res://addons/gditems/scripts/classes/item_scene_interface3d.gd" id="1_62lpo"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_62lpo"]
+albedo_color = Color(0.28332123, 0.10654143, 0, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_imwi8"]
+material = SubResource("StandardMaterial3D_62lpo")
+top_radius = 0.005
+bottom_radius = 0.02
+
+[node name="StickDropped" type="Node3D"]
+script = ExtResource("1_62lpo")
+metadata/_custom_type_script = "uid://d63cvd7xr834"
+
+[node name="StickMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("CylinderMesh_imwi8")
+skeleton = NodePath("")
+
+[node name="StickMesh2" type="MeshInstance3D" parent="."]
+transform = Transform3D(-1.499068e-08, 0.3429468, -0.3429468, -0.485, -2.1200023e-08, 0, -1.499068e-08, 0.3429468, 0.3429468, 0.31280845, 0, 0.34327942)
+mesh = SubResource("CylinderMesh_imwi8")
+skeleton = NodePath("")

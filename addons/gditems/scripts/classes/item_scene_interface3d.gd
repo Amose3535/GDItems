@@ -1,6 +1,6 @@
-# item_scene_interface.gd
-extends Node
-class_name ItemSceneInterface
+# item_scene_interface3d.gd
+extends Node3D
+class_name ItemSceneInterface3D
 ## The node which bridges logic with vfx (animation, particles, etc).
 ##
 ## This is meant to be used as the root node of the item scene. Can be used as interface for animations and vfx.

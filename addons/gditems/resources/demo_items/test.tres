@@ -1,14 +1,18 @@
-[gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://dik7q5usiqmna"]
+[gd_resource type="Resource" script_class="Item" load_steps=5 format=3 uid="uid://dik7q5usiqmna"]
 
 [ext_resource type="Script" uid="uid://ct0wnjptf3q8u" path="res://addons/gditems/scripts/classes/item_components/item_component.gd" id="1_e6vv8"]
 [ext_resource type="Script" uid="uid://cgxjhi2lbvdij" path="res://addons/gditems/scripts/classes/Item.gd" id="2_srol6"]
 [ext_resource type="Texture2D" uid="uid://c8yqnqxf67dmm" path="res://icon.svg" id="2_swj4t"]
+[ext_resource type="PackedScene" uid="uid://ylj4gypi8buw" path="res://addons/gditems/scenes/item_scenes/stick/stick_dropped.tscn" id="3_swj4t"]
 
 [resource]
 script = ExtResource("2_srol6")
-name = "Testing item"
 id = "test"
+name = "Testing item"
 description = "An item made to test its functionalities"
 flavor_text = "*Testing*"
 icon = ExtResource("2_swj4t")
+scenes = Dictionary[String, PackedScene]({
+"drop": ExtResource("3_swj4t")
+})
 metadata/_custom_type_script = "uid://cgxjhi2lbvdij"

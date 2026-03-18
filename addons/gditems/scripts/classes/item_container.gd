@@ -23,6 +23,7 @@ var _active_ticking_stacks: Array[ItemStack] = []
 ## Array of item stacks which have event listening
 var _active_event_stacks: Dictionary[String, Array] = {}
 
+## The context of this ItemContainer.[br]NOTE: ItemContaienr DOES NOT build its own context unlike WorldItem3D/2D because it's NOT a node. Hence it doesn't "own" the context, only whe owner of the ItemContainer does, hence It only limits itself to propagate it downwards.
 var _context: Dictionary[String, Variant] = {}
 
 func set_slot(index: int, with: ItemStack) -> void:
@@ -50,7 +51,7 @@ func _physics_process_items(delta: float) -> void:
 ## Function used to propagate events onto items of such container
 func _dispatch_event_items(event_name: String, event_context: Dictionary[String, Variant] = _context) -> void:
 	# Add event name to the context passed to the item. Could be redundant but adds strength to the code in case of future refactorings
-	if !event_context.has("event"): event_context["event"] = event_name
+	if !event_context.has(Item.CONTEXT_EVENTS_ID): event_context[Item.CONTEXT_EVENTS_ID] = event_name
 	
 	# If no such event is present in the active item stacks, skip
 	if !_active_event_stacks.has(event_name): return

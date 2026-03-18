@@ -10,7 +10,7 @@ class_name ItemStack
 ## How many items are there for that specific item
 @export var amount: int = 1
 ## How many times per second should the ItemStack tick (set it to -1 to be the same as physics process and 0 to not tick)
-@export var tick_rate: int = -1
+@export var tick_rate: int = 10
 
 var _is_cached: bool = false
 
@@ -49,7 +49,7 @@ func _dispatch_event(event_name: String, event_context: Dictionary[String, Varia
 	if !event_cache.has(event_name): return
 	
 	# Add event name to the context passed to the event component. Could be redundant but adds strength to the code in case of future refactorings
-	if !event_context.has("event"): event_context["event"] = event_name
+	if !event_context.has(Item.CONTEXT_EVENTS_ID): event_context[Item.CONTEXT_EVENTS_ID] = event_name
 	
 	# Finally call the execute function of such component with the proper event context
 	for event_component in event_cache[event_name]:
