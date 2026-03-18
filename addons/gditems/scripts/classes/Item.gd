@@ -26,11 +26,11 @@ enum ItemRarity {
 ## The icon of this item
 @export var icon: Texture2D
 ## The Scene of this item. The root of the scene must be ItemSceneInterface in order to work properly.
-@export var scene: PackedScene
+@export var scenes: Dictionary[String, PackedScene] = {}
 ## The array of components of this item. They define the behavior (E.g Equippable, Weapon, Consumable, etc)
 @export var components: Array[ItemComponent]
 
-func _init(_name: String, _id: String, _description: String, _flavor_text: String, _rarity: ItemRarity, _max_stack: int, _icon: Texture2D, _scene: PackedScene, _components: Array[ItemComponent]):
+func _init(_name: String, _id: String, _description: String, _flavor_text: String, _rarity: ItemRarity, _max_stack: int, _icon: Texture2D, _scenes: Dictionary[String, PackedScene], _components: Array[ItemComponent]):
 	name = _name
 	id = _id
 	description = _description
@@ -38,5 +38,5 @@ func _init(_name: String, _id: String, _description: String, _flavor_text: Strin
 	rarity = _rarity
 	max_stack = _max_stack
 	icon = _icon
-	scene = _scene
+	scenes = _scenes
 	components = _components
