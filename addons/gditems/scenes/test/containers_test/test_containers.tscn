@@ -1,0 +1,99 @@
+[gd_scene load_steps=18 format=3 uid="uid://b4ck7c21ohfpx"]
+
+[ext_resource type="Script" uid="uid://b7tc36x5w4g7j" path="res://addons/gditems/scenes/test/containers_test/character_body_3d.gd" id="1_7rary"]
+[ext_resource type="Script" uid="uid://7d0cy2jnfwi1" path="res://addons/gditems/scripts/classes/Item_stack.gd" id="2_hhsov"]
+[ext_resource type="Script" uid="uid://1cshcpejverg" path="res://addons/gditems/scenes/test/containers_test/inventory.gd" id="4_1ntf5"]
+[ext_resource type="Resource" uid="uid://dik7q5usiqmna" path="res://addons/gditems/resources/demo_items/test.tres" id="4_hf3tq"]
+[ext_resource type="Script" uid="uid://dbyy3ieu5rj8f" path="res://addons/gditems/scripts/classes/item_inventory.gd" id="4_vflic"]
+[ext_resource type="PackedScene" uid="uid://dpyhbs2lmabva" path="res://addons/gditems/scenes/test/containers_test/slot.tscn" id="5_4tgvp"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_7rary"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_lnuga"]
+sky_material = SubResource("ProceduralSkyMaterial_7rary")
+
+[sub_resource type="Environment" id="Environment_hhsov"]
+background_mode = 2
+sky = SubResource("Sky_lnuga")
+tonemap_mode = 2
+
+[sub_resource type="Resource" id="Resource_hf3tq"]
+script = ExtResource("2_hhsov")
+item = ExtResource("4_hf3tq")
+metadata/_custom_type_script = "uid://7d0cy2jnfwi1"
+
+[sub_resource type="Resource" id="Resource_23lyh"]
+script = ExtResource("4_vflic")
+inventory_array = Array[ExtResource("2_hhsov")]([null, SubResource("Resource_hf3tq"), null, null, null])
+slot_amount = 5
+metadata/_custom_type_script = "uid://dbyy3ieu5rj8f"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_imfpj"]
+albedo_color = Color(0.45882353, 0.15294118, 0.3019608, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_7rary"]
+material = SubResource("StandardMaterial3D_imfpj")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_lnuga"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_7rary"]
+frequency = 1.0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_lnuga"]
+noise = SubResource("FastNoiseLite_7rary")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hhsov"]
+albedo_texture = SubResource("NoiseTexture2D_lnuga")
+
+[node name="TestContainers" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_hhsov")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
+script = ExtResource("1_7rary")
+inventory = SubResource("Resource_23lyh")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D"]
+mesh = SubResource("BoxMesh_7rary")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
+shape = SubResource("BoxShape3D_lnuga")
+
+[node name="Camera3D" type="Camera3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 0.7071068, 0.7071068, 0, -0.7071068, 0.7071068, 0, 1.6, 1.9)
+
+[node name="UI" type="CanvasLayer" parent="CharacterBody3D"]
+
+[node name="Control" type="Control" parent="CharacterBody3D/UI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Inventory" type="GridContainer" parent="CharacterBody3D/UI/Control" node_paths=PackedStringArray("player_node")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+columns = 5
+script = ExtResource("4_1ntf5")
+player_node = NodePath("../../..")
+slot_scene = ExtResource("5_4tgvp")
+items_amount = null
+
+[node name="Floor" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.65, 0)
+use_collision = true
+size = Vector3(100, 0.3, 100)
+material = SubResource("StandardMaterial3D_hhsov")

@@ -1,31 +1,10 @@
-# item_container.gd
+# item_inventory.gd
 @tool
-extends Resource
-class_name ItemContainer
-## A class used to generate inventories with a specified number of slots that hold ItemStack Resources.
+extends ItemContainer
+class_name ItemInventory
+## A specialized ItemContainer class which allows for a selection of a specific slot of the inventory, that allows to pass two different contexts depending if the item is selected or not.
 
-
-
-## The actual inventory array. This is what holds the data of the content of a container.
-@export var inventory_array: Array[ItemStack] = []
-
-## The size of the container
-@export_range(1,100,1.0,"or_greater") var slot_amount: int = 1:
-	set(new_val):
-		slot_amount = new_val
-		if inventory_array == null: inventory_array = []
-		inventory_array.resize(new_val)
-		notify_property_list_changed()
-
-## Array of item stacks which have physics ticking
-var _active_ticking_stacks: Array[ItemStack] = []
-
-## Array of item stacks which have event listening
-var _active_event_stacks: Dictionary[String, Array] = {}
-
-## The context of this ItemContainer.[br]NOTE: ItemContaienr DOES NOT build its own context unlike WorldItem3D/2D because it's NOT a node. Hence it doesn't "own" the context, only whe owner of the ItemContainer does, hence It only limits itself to propagate it downwards.
-var _context: Dictionary[String, Variant] = {}
-
+@export var selected_index: int = 0
 
 
 
@@ -47,17 +26,26 @@ func set_slot(index: int, with: ItemStack) -> void:
 
 
 
+
+
+
+
+
+
 ## Function that updates the physics process equivalent in items of the container
 func _physics_process_items(delta: float) -> void:
 	# Cache and edit context to pass to every item
 	var item_context: Dictionary[String, Variant] = _context.duplicate(false)
 	item_context[Item.CONTEXT_MODE] = Item.ITEM_MODE_CONTAINER
+	
+	var index: int = 0
 	# Cycle through every item and
 	for item:ItemStack in _active_ticking_stacks:
 		if item == null: continue
 		# Set context IFF the ItemStack's context is different, no need to set the same context over and over
 		if item._context != item_context: item._context = item_context
 		item._physics_process_item(delta)
+		index += 1
 
 ## Function used to propagate events onto items of such container
 func _dispatch_event_items(event_name: String, event_context: Dictionary[String, Variant] = _context) -> void:
@@ -75,6 +63,13 @@ func _dispatch_event_items(event_name: String, event_context: Dictionary[String,
 	for item:ItemStack in _active_event_stacks[event_name]:
 		if item == null: continue
 		item._dispatch_event(event_name, item_context)
+
+
+
+
+
+
+
 
 
 
