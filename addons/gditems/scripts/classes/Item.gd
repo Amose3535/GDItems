@@ -1,7 +1,15 @@
 # item.gd
 extends Resource
 class_name Item
-## A special type of resource used to describe an item
+## A special type of resource used to describe an item and its functionality.
+
+
+## The name that the context identifier for the wner should be
+const CONTEXT_OWNER: String = "owner"
+## The name that the context identifier for the events should be
+const CONTEXT_EVENT: String = "event"
+## The name that the context identifier for the item mode should be
+const CONTEXT_MODE: String = "item_mode"
 
 
 ## The name that string properties should try to access when referring to world mode / dropped mode.
@@ -10,13 +18,9 @@ const ITEM_MODE_WORLD: String = "drop"
 const ITEM_MODE_HELD: String = "hand"
 ## The name that string properties should try to access when referring to equipped mode / worn mode.
 const ITEM_MODE_WORN: String = "equip"
+## The name that string properties should try to access when referring to inventory / container mode.
+const ITEM_MODE_CONTAINER: String = "container"
 
-## The name that the context identifier for the wner should be
-const CONTEXT_OWNER: String = "owner"
-## The name that the context identifier for the events should be
-const CONTEXT_EVENT: String = "event"
-## The name that the context identifier for the item mode should be
-const CONTEXT_MODE: String = "item_mode"
 
 ## The rarity of the item. It doesn't do anything on its own other than deco.
 enum ItemRarity {

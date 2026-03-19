@@ -1,15 +1,16 @@
 [gd_resource type="Resource" script_class="Item" load_steps=7 format=3 uid="uid://dik7q5usiqmna"]
 
 [ext_resource type="Script" uid="uid://ct0wnjptf3q8u" path="res://addons/gditems/scripts/classes/item_components/item_component.gd" id="1_e6vv8"]
-[ext_resource type="Script" uid="uid://c4e2gpx2k1ciy" path="res://addons/gditems/scripts/classes/item_components/spam_hello.gd" id="2_o312d"]
+[ext_resource type="Script" uid="uid://dk35vjhxjf0ts" path="res://addons/gditems/scripts/classes/item_components/hello_event_print.gd" id="2_o312d"]
 [ext_resource type="Script" uid="uid://cgxjhi2lbvdij" path="res://addons/gditems/scripts/classes/Item.gd" id="2_srol6"]
 [ext_resource type="Texture2D" uid="uid://dckb74kd5o6mg" path="res://addons/gditems/assets/images/fuaahh.png" id="3_o312d"]
 [ext_resource type="PackedScene" uid="uid://d0mecvp5crtgk" path="res://addons/gditems/scenes/item_scenes/test/test_dropped.tscn" id="4_g3ohf"]
 
-[sub_resource type="Resource" id="Resource_0k7e4"]
+[sub_resource type="Resource" id="Resource_o312d"]
 script = ExtResource("2_o312d")
-print_pos = false
-metadata/_custom_type_script = "uid://c4e2gpx2k1ciy"
+mode = "drop"
+listen_events = Array[String](["hello_event"])
+metadata/_custom_type_script = "uid://dk35vjhxjf0ts"
 
 [resource]
 script = ExtResource("2_srol6")
@@ -21,5 +22,5 @@ icon = ExtResource("3_o312d")
 scenes = Dictionary[String, PackedScene]({
 "drop": ExtResource("4_g3ohf")
 })
-components = Array[ExtResource("1_e6vv8")]([SubResource("Resource_0k7e4")])
+components = Array[ExtResource("1_e6vv8")]([SubResource("Resource_o312d")])
 metadata/_custom_type_script = "uid://cgxjhi2lbvdij"

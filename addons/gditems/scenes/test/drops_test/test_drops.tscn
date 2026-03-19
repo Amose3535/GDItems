@@ -1,5 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://c67ebhsx72ky2"]
+[gd_scene load_steps=6 format=3 uid="uid://c67ebhsx72ky2"]
 
+[ext_resource type="Script" uid="uid://dyomujrs4xs6m" path="res://addons/gditems/scenes/test/drops_test/test_drops.gd" id="1_hhy8s"]
 [ext_resource type="Script" uid="uid://dwro31wxe0t78" path="res://addons/gditems/scripts/classes/world_item3d.gd" id="1_is4hd"]
 [ext_resource type="Resource" uid="uid://dik7q5usiqmna" path="res://addons/gditems/resources/demo_items/test.tres" id="2_flqfl"]
 [ext_resource type="Script" uid="uid://7d0cy2jnfwi1" path="res://addons/gditems/scripts/classes/Item_stack.gd" id="3_hhy8s"]
@@ -10,6 +11,7 @@ item = ExtResource("2_flqfl")
 metadata/_custom_type_script = "uid://7d0cy2jnfwi1"
 
 [node name="TestDrops" type="Node3D"]
+script = ExtResource("1_hhy8s")
 
 [node name="Ground" type="CSGBox3D" parent="."]
 use_collision = true
