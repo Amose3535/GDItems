@@ -48,10 +48,10 @@ func _physics_process_item(delta: float) -> void:
 
 ## The function which is triggered when an even happens. Depending on the container
 func _dispatch_event(event_name: String, event_context: Dictionary[String, Variant] = _context.duplicate()) -> void:
+	#print("Recieved event "+event_name+" and context"+str(event_context))
 	if event_cache.is_empty(): 
 		if !_is_cached: _cache_components()
 		else: return # Early return if there's no event component and the cache is already built
-	
 	# Skips unneeded events
 	if !event_cache.has(event_name): return
 	# Add event name to the context passed to the event component. Could be redundant but adds strength to the code in case of future refactorings

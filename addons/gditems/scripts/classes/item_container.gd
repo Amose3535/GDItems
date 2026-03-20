@@ -59,22 +59,52 @@ func set_slot(index: int, with: ItemStack) -> void:
 		_add_stack_to_caches(with)
 
 ## Helper function usable as API to add an ItemStack to the inventory.[br]
-## This function automatically attempts to add to a slot a certain amount of some Item. If the slot is empty, the whole stack is added, if it's filled with an ItemStack, it checks if the two items are compatible, and if so it adds all the item_stack items it can to that slots. If even then it overflows, it recursively calls itself onto the next slot
-func add_to_inventory(item_stack: ItemStack, _slot: int = 0) -> ItemStack:
-	# Guard 
-	if incoming_stack == null or incoming_stack.amount <= 0:
+## This function automatically attempts to add to a slot a certain amount of some Item in such a way that it occupies the least space in the inventory.
+func add_to_inventory(item_stack: ItemStack) -> ItemStack:
+	# Guard to prevent futile execution
+	if item_stack == null or item_stack.item == null or item_stack.amount <= 0 :
 		return null
 	
-	var max_stack: int = incoming_stack.item.max_stack
+	var max_stack: int = item_stack.item.max_stack # Cache max stack
+	# 1) Sibling search + quick stacking (stack analogous items with analogous items before stacking them from the start)
+	for i in range(slot_amount):
+		var current_slot: ItemStack = item_array[i]
+		# If the slot isn't empty and it's of the same type of the object attempt partial stacking
+		if current_slot != null and current_slot.item == item_stack.item:
+			var space_left: int = max_stack - current_slot.amount # Get space left
+			# Check if i have space
+			if space_left > 0:
+				# The transfer amount is the min between how much space is left and the max stack
+				# just in case SOMEHOW item_stack.amount was smaller than the remaining slots available
+				var transfer_amount: int = min(space_left, item_stack.amount)
+				# Add to current slot and subtract from item_stack
+				current_slot.amount += transfer_amount
+				item_stack.amount -= transfer_amount
+				# If the input stack is now empty, return null
+				if item_stack.amount <= 0:
+					return null
 	
+	# 2) Start to end stacking
+	# If we're now here, either there were no compatible stacks or they have already been filled.
+	# I still have some item_stack.amount to empty
+	for i in range(slot_amount):
+		# Check if the current slot is empty
+		if item_array[i] == null:
+			# Compute how much can i deposit (either the max stack or the current amount)
+			var transfer_amount: int = min(max_stack, item_stack.amount)
+			# Make new stack to break reference sharing (pass parameters in new() function to let _cache_components() run)
+			var new_stack: ItemStack = ItemStack.new(item_stack.item,transfer_amount)
+			# Set the empty slot with the new stack
+			set_slot(i, new_stack)
+			# deduct the transfer amount from the item stack 
+			item_stack.amount -= transfer_amount
+			# If the stack is finally empty, then return null
+			if item_stack.amount <= 0:
+				return null
 	
-	# Phase 1: Siblings search for quick stacking
-	for current_item:ItemStack in item_array:
-		if current_item == null: continue # Go to next item in container
-		
-		# If a similar item is found then try to stack them
-		if item_stack.item == current_item.item:
-			pass
+	# 3) Rejection
+	# If we have arrived here then this means that the item stack couldn't be emptied (either partially or fully) and so this is what remains of it
+	return item_stack
 
 
 

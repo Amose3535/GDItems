@@ -52,6 +52,7 @@ func _propagate_event(event:String) -> void:
 		return
 	# Skips if the item_stack is null
 	if item_stack == null: return
+	#print("Recieved event "+event)
 	item_stack._dispatch_event(event)
 
 func _build_context() -> void:
@@ -61,9 +62,13 @@ func _build_context() -> void:
 	_context[Item.CONTEXT_MODE] = Item.ITEM_MODE_WORLD
 
 func _link_item_context() -> void:
+	if Engine.is_editor_hint():
+		# Editor only code here
+		return
+	# Game only code here
 	if item_stack == null: return
 	# No need to do more than once considering dictionaries are passed by reference, so any modification here leads to a modification downstream.
-	item_stack._context = _context 
+	item_stack._context = _context
 
 
 func _instantiate_item_scene() -> void:
