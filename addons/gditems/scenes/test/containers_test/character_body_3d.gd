@@ -8,13 +8,31 @@ const JUMP_VELOCITY = 4.5
 @export var selected_index: int = 0:
 	set(new_index):
 		if new_index != selected_index: 
-			scrolled(new_index)
 			selected_index = new_index
+			print("Index: ",new_index)
 
 ## The context of the player. This contains useful information for all items downstream of the player
 var _context: Dictionary[String, Variant] = {}
 
+func _ready() -> void:
+	inventory.initialize_inventory()
+
 func _physics_process(delta: float) -> void:
+	inventory._physics_process_items(delta)
+	
+	if Input.is_action_just_pressed("slots_scroll_up"):
+		scroll(false)
+		#print("Scrolled up")
+	elif Input.is_action_just_pressed("slots_scroll_down"):
+		scroll(true)
+		#print("scrolled down")
+	
+	
+	if Input.is_action_just_pressed("interact"):
+		var context: Dictionary[String, Variant] = build_context()
+		#print("tried interacting")
+		inventory._dispatch_event_items("interacted",context)
+	
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
@@ -40,15 +58,16 @@ func scroll(up:bool) -> void:
 		selected_index += 1
 	else:
 		selected_index -= 1
-	if selected_index >= inventory.slot_amount: selected_index = 0
+	if selected_index > inventory.slot_amount-1: selected_index = 0
 	if selected_index < 0: selected_index = inventory.slot_amount-1
+	
+	inventory.selected_index = selected_index
 
-func scrolled(to_index: int) -> void:
-	# Insert code to change 
-	inventory.selected_index = to_index
+func build_context() -> Dictionary[String, Variant]:
+	var context: Dictionary[String, Variant] = {
+		Item.CONTEXT_OWNER: self
+	}
+	return context
 
 func _unhandled_input(event: InputEvent) -> void:
-	if Input.is_action_just_pressed("slots_scroll_up"):
-		scroll(true)
-	elif Input.is_action_just_pressed("slots_scroll_down"):
-		scroll(false)
+	pass

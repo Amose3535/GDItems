@@ -7,14 +7,14 @@ class_name ItemContainer
 
 
 ## The actual inventory array. This is what holds the data of the content of a container.
-@export var inventory_array: Array[ItemStack] = []
+@export var item_array: Array[ItemStack] = []
 
 ## The size of the container
 @export_range(1,100,1.0,"or_greater") var slot_amount: int = 1:
 	set(new_val):
 		slot_amount = new_val
-		if inventory_array == null: inventory_array = []
-		inventory_array.resize(new_val)
+		if item_array == null: item_array = []
+		item_array.resize(new_val)
 		notify_property_list_changed()
 
 ## Array of item stacks which have physics ticking
@@ -26,19 +26,22 @@ var _active_event_stacks: Dictionary[String, Array] = {}
 ## The context of this ItemContainer.[br]NOTE: ItemContaienr DOES NOT build its own context unlike WorldItem3D/2D because it's NOT a node. Hence it doesn't "own" the context, only whe owner of the ItemContainer does, hence It only limits itself to propagate it downwards.
 var _context: Dictionary[String, Variant] = {}
 
-
-
+func initialize_inventory() -> void:
+	if item_array == null: return
+	if item_array.is_empty(): return
+	for item_stack:ItemStack in item_array:
+		_add_stack_to_caches(item_stack)
 
 func set_slot(index: int, with: ItemStack) -> void:
 	if index > slot_amount-1 or index < 0:
 		push_error("WARNING: Trying to access an out of bound index ({index}) for container {container} with ItemStack \"{item_stack}\".".format({"index":index,"container":self, "item_stack":with}))
 	
 	# If the target slot contains something, remove that that stack from cache
-	if inventory_array[index] != null:
-		_remove_stack_from_caches(inventory_array[index])
+	if item_array[index] != null:
+		_remove_stack_from_caches(item_array[index])
 	
 	# Then insert new object
-	inventory_array[index] = with
+	item_array[index] = with
 	
 	# If the inserted object is not null, then proceed to add it to the cache
 	if with != null:
@@ -52,7 +55,7 @@ func _physics_process_items(delta: float) -> void:
 	# Cache and edit context to pass to every item
 	var item_context: Dictionary[String, Variant] = _context.duplicate(false)
 	item_context[Item.CONTEXT_MODE] = Item.ITEM_MODE_CONTAINER
-	# Cycle through every item and
+	# Cycle through the items in the ticking cache
 	for item:ItemStack in _active_ticking_stacks:
 		if item == null: continue
 		# Set context IFF the ItemStack's context is different, no need to set the same context over and over
@@ -71,7 +74,7 @@ func _dispatch_event_items(event_name: String, event_context: Dictionary[String,
 	# Add event name to the context passed to the item. Could be redundant but adds strength to the code in case of future refactorings
 	if !item_context.has(Item.CONTEXT_EVENT): item_context[Item.CONTEXT_EVENT] = event_name
 	
-	# Finally call the dispatch function of every item with the proper event context
+	# Cycle through the items in the active event cache
 	for item:ItemStack in _active_event_stacks[event_name]:
 		if item == null: continue
 		item._dispatch_event(event_name, item_context)
@@ -82,6 +85,7 @@ func _dispatch_event_items(event_name: String, event_context: Dictionary[String,
 #region caching
 ## This function is responsible for adding the item stack in the correct cache/s
 func _add_stack_to_caches(stack: ItemStack) -> void:
+	if stack == null: return
 	for component:ItemComponent in stack.item.components:
 		if component is TickingComponent: _add_to_ticking(stack)
 		if component is EventComponent: _add_to_events(stack, component) 

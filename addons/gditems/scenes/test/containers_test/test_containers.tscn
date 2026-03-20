@@ -19,15 +19,15 @@ background_mode = 2
 sky = SubResource("Sky_lnuga")
 tonemap_mode = 2
 
-[sub_resource type="Resource" id="Resource_hf3tq"]
+[sub_resource type="Resource" id="Resource_vflic"]
 script = ExtResource("2_hhsov")
 item = ExtResource("4_hf3tq")
 metadata/_custom_type_script = "uid://7d0cy2jnfwi1"
 
-[sub_resource type="Resource" id="Resource_23lyh"]
+[sub_resource type="Resource" id="Resource_4tgvp"]
 script = ExtResource("4_vflic")
-inventory_array = Array[ExtResource("2_hhsov")]([null, SubResource("Resource_hf3tq"), null, null, null])
-slot_amount = 5
+item_array = Array[ExtResource("2_hhsov")]([null, SubResource("Resource_vflic"), null, null])
+slot_amount = 4
 metadata/_custom_type_script = "uid://dbyy3ieu5rj8f"
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_imfpj"]
@@ -58,7 +58,7 @@ shadow_enabled = true
 
 [node name="CharacterBody3D" type="CharacterBody3D" parent="."]
 script = ExtResource("1_7rary")
-inventory = SubResource("Resource_23lyh")
+inventory = SubResource("Resource_4tgvp")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D"]
 mesh = SubResource("BoxMesh_7rary")
@@ -90,7 +90,6 @@ columns = 5
 script = ExtResource("4_1ntf5")
 player_node = NodePath("../../..")
 slot_scene = ExtResource("5_4tgvp")
-items_amount = null
 
 [node name="Floor" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.65, 0)

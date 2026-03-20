@@ -8,8 +8,8 @@
 
 [sub_resource type="Resource" id="Resource_o312d"]
 script = ExtResource("2_o312d")
-mode = "drop"
-listen_events = Array[String](["hello_event"])
+mode = "hand"
+listen_events = Array[String](["interacted", "hello_event"])
 metadata/_custom_type_script = "uid://dk35vjhxjf0ts"
 
 [resource]
