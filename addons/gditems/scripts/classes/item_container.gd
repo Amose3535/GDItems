@@ -32,11 +32,16 @@ var _context: Dictionary[String, Variant] = {}:
 		# Add itself as context
 		_context[Item.CONTEXT_CONTAINER] = self
 
+
+
 func initialize_inventory() -> void:
 	if item_array == null: return
 	if item_array.is_empty(): return
 	for item_stack:ItemStack in item_array:
 		_add_stack_to_caches(item_stack)
+
+
+
 
 func set_slot(index: int, with: ItemStack) -> void:
 	if index > slot_amount-1 or index < 0:
@@ -53,6 +58,23 @@ func set_slot(index: int, with: ItemStack) -> void:
 	if with != null:
 		_add_stack_to_caches(with)
 
+## Helper function usable as API to add an ItemStack to the inventory.[br]
+## This function automatically attempts to add to a slot a certain amount of some Item. If the slot is empty, the whole stack is added, if it's filled with an ItemStack, it checks if the two items are compatible, and if so it adds all the item_stack items it can to that slots. If even then it overflows, it recursively calls itself onto the next slot
+func add_to_inventory(item_stack: ItemStack, _slot: int = 0) -> ItemStack:
+	# Guard 
+	if incoming_stack == null or incoming_stack.amount <= 0:
+		return null
+	
+	var max_stack: int = incoming_stack.item.max_stack
+	
+	
+	# Phase 1: Siblings search for quick stacking
+	for current_item:ItemStack in item_array:
+		if current_item == null: continue # Go to next item in container
+		
+		# If a similar item is found then try to stack them
+		if item_stack.item == current_item.item:
+			pass
 
 
 
