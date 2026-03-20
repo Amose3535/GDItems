@@ -24,7 +24,13 @@ var _active_ticking_stacks: Array[ItemStack] = []
 var _active_event_stacks: Dictionary[String, Array] = {}
 
 ## The context of this ItemContainer.[br]NOTE: ItemContaienr DOES NOT build its own context unlike WorldItem3D/2D because it's NOT a node. Hence it doesn't "own" the context, only whe owner of the ItemContainer does, hence It only limits itself to propagate it downwards.
-var _context: Dictionary[String, Variant] = {}
+var _context: Dictionary[String, Variant] = {}:
+	set(new_context):
+		if new_context == _context: return
+		# Duplicate to prevent collision
+		_context = new_context.duplicate()
+		# Add itself as context
+		_context[Item.CONTEXT_CONTAINER] = self
 
 func initialize_inventory() -> void:
 	if item_array == null: return

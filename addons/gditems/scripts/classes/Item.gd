@@ -4,13 +4,16 @@ class_name Item
 ## A special type of resource used to describe an item and its functionality.
 
 
-## The name that the context identifier for the wner should be
+## The name for the context id of the owner.
 const CONTEXT_OWNER: String = "owner"
-## The name that the context identifier for the events should be
+## The name for the context id of the events.
 const CONTEXT_EVENT: String = "event"
-## The name that the context identifier for the item mode should be
+## The name for the context id of the item mode.
 const CONTEXT_MODE: String = "item_mode"
-
+## The name for the context id of the ItemContainer.
+const CONTEXT_CONTAINER: String = "item_container"
+## The name for the context id of the ItemStack in which Item lives.
+const CONTEXT_STACK: String = "item_stack"
 
 ## The name that string properties should try to access when referring to world mode / dropped mode.
 const ITEM_MODE_WORLD: String = "drop"

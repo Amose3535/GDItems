@@ -17,7 +17,14 @@ var _is_cached: bool = false
 var ticking_cache: Array[TickingComponent] = []
 var event_cache: Dictionary[String, Array] = {}
 
-var _context: Dictionary[String, Variant] = {}
+var _context: Dictionary[String, Variant] = {}:
+	set(new_context):
+		if new_context == _context: return
+		# Duplicate the given context to prevent collisions with other ItemStacks in the same inventory
+		_context = new_context.duplicate()
+		# Add self to the context in Item.CONTEXT_STACK
+		_context[Item.CONTEXT_STACK] = self
+
 var _internal_time: float = 0.0
 
 
@@ -43,12 +50,14 @@ func _physics_process_item(delta: float) -> void:
 func _dispatch_event(event_name: String, event_context: Dictionary[String, Variant] = _context.duplicate()) -> void:
 	if event_cache.is_empty(): 
 		if !_is_cached: _cache_components()
-		else:
-			return # Early return if there's no event component and the cache is already built
+		else: return # Early return if there's no event component and the cache is already built
+	
 	# Skips unneeded events
 	if !event_cache.has(event_name): return
 	# Add event name to the context passed to the event component. Could be redundant but adds strength to the code in case of future refactorings
 	if !event_context.has(Item.CONTEXT_EVENT): event_context[Item.CONTEXT_EVENT] = event_name
+	if !event_context.has(Item.CONTEXT_STACK): event_context[Item.CONTEXT_STACK] = self
+	
 	# Finally call the execute function of such component with the proper event context
 	for event_component in event_cache[event_name]:
 		event_component.execute(event_context)

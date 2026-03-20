@@ -41,10 +41,8 @@ func _dispatch_event_items(event_name: String, event_context: Dictionary[String,
 	
 	# Add event name to the context passed to the item. Could be redundant but adds strength to the code in case of future refactorings
 	if !event_context.has(Item.CONTEXT_EVENT): event_context[Item.CONTEXT_EVENT] = event_name
-	#print("Recieved event {event} with context {context}".format({"event":event_name,"context":event_context}))
 	# Cache and edit context to pass to every item
 	var item_context: Dictionary[String, Variant] = event_context.duplicate(false)
-	
 	
 	# Finally call the dispatch function of every item with the proper event context
 	for item:ItemStack in _active_event_stacks[event_name]:
@@ -53,8 +51,4 @@ func _dispatch_event_items(event_name: String, event_context: Dictionary[String,
 		var item_index: int = item_array.find(item)
 		
 		item_context[Item.CONTEXT_MODE] = (Item.ITEM_MODE_HELD if item_index == selected_index else Item.ITEM_MODE_CONTAINER)
-		#print(item_context[Item.CONTEXT_MODE])
-		
-		#print("Recieved event {event} with context {context} in mode {mode} at item {item}".format({"event":event_name,"context":event_context,"mode":item_context[Item.CONTEXT_MODE],"item":item.item.id}))
-		
 		item._dispatch_event(event_name, item_context)
