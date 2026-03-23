@@ -4,7 +4,7 @@ extends EditorPlugin
 
 func _enable_plugin() -> void:
 	# Add autoloads here.
-	add_autoload_singleton("ItemManager","res://addons/gditems/scripts/autoload/item_manager.gd")
+	add_autoload_singleton("ItemManager","res://addons/gditems/scripts/autoload/item_manager.tscn")
 
 
 func _disable_plugin() -> void:

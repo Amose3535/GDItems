@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://ccwh20eajkkgn"]
+
+[ext_resource type="Script" uid="uid://b5xfsclfbkuow" path="res://addons/gditems/scripts/autoload/item_manager.gd" id="1_1qc60"]
+
+[node name="ItemManager" type="Node"]
+script = ExtResource("1_1qc60")
+metadata/_custom_type_script = "uid://b5xfsclfbkuow"
