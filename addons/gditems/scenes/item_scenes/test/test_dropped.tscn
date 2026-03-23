@@ -1,13 +1,18 @@
-[gd_scene load_steps=4 format=3 uid="uid://d0mecvp5crtgk"]
+[gd_scene load_steps=5 format=3 uid="uid://d0mecvp5crtgk"]
 
-[ext_resource type="Texture2D" uid="uid://dckb74kd5o6mg" path="res://addons/gditems/assets/images/fuaahh.png" id="1_v4y4l"]
+[ext_resource type="Script" uid="uid://d63cvd7xr834" path="res://addons/gditems/scripts/classes/item_scene_interface3d.gd" id="1_knbcf"]
+[ext_resource type="Texture2D" uid="uid://c8yqnqxf67dmm" path="res://icon.svg" id="2_fd34j"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_knbcf"]
-albedo_texture = ExtResource("1_v4y4l")
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kj2yf"]
+albedo_texture = ExtResource("2_fd34j")
 
 [sub_resource type="SphereMesh" id="SphereMesh_fd34j"]
-material = SubResource("StandardMaterial3D_knbcf")
+material = SubResource("StandardMaterial3D_kj2yf")
 
-[node name="MeshInstance3D" type="MeshInstance3D"]
+[node name="ItemSceneInterface3D" type="Node3D"]
+script = ExtResource("1_knbcf")
+metadata/_custom_type_script = "uid://d63cvd7xr834"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.25115773, 0, 0, 0, -1.0978454e-08, -0.25115773, 0, 0.25115773, -1.0978454e-08, 0, 0, 0)
 mesh = SubResource("SphereMesh_fd34j")

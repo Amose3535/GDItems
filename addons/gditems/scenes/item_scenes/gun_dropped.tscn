@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://dkgs4n8uy2i1f"]
+
+[ext_resource type="Script" uid="uid://ba8xmulctfmjs" path="res://addons/gditems/scenes/item_scenes/gun_dropped.gd" id="1_tectg"]
+
+[sub_resource type="TextMesh" id="TextMesh_tectg"]
+text = "🔫"
+font_size = 34
+pixel_size = 0.0333
+curve_step = 0.1
+depth = 0.095
+
+[node name="GunDropped" type="Node3D"]
+script = ExtResource("1_tectg")
+metadata/_custom_type_script = "uid://d63cvd7xr834"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
+mesh = SubResource("TextMesh_tectg")

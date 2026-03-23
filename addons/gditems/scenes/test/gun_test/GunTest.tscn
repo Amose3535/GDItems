@@ -1,0 +1,23 @@
+[gd_scene load_steps=6 format=3 uid="uid://b1qg1833pt5rx"]
+
+[ext_resource type="Script" uid="uid://b3od06budtc6c" path="res://addons/gditems/scenes/test/gun_test/gun_test.gd" id="1_cmc11"]
+[ext_resource type="Script" uid="uid://dwro31wxe0t78" path="res://addons/gditems/scripts/classes/world_item3d.gd" id="1_s6tto"]
+[ext_resource type="Resource" uid="uid://m74ladiy2x34" path="res://addons/gditems/resources/demo_items/gun.tres" id="2_cmc11"]
+[ext_resource type="Script" uid="uid://7d0cy2jnfwi1" path="res://addons/gditems/scripts/classes/Item_stack.gd" id="3_kwrb2"]
+
+[sub_resource type="Resource" id="Resource_l8whc"]
+script = ExtResource("3_kwrb2")
+item = ExtResource("2_cmc11")
+metadata/_custom_type_script = "uid://7d0cy2jnfwi1"
+
+[node name="GunTest" type="Node3D"]
+script = ExtResource("1_cmc11")
+
+[node name="WorldItem3D" type="Node3D" parent="."]
+script = ExtResource("1_s6tto")
+item_stack = SubResource("Resource_l8whc")
+metadata/_custom_type_script = "uid://dwro31wxe0t78"
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+size = Vector3(100, 1, 100)

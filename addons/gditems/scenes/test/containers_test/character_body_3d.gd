@@ -31,7 +31,7 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("interact"):
 		var context: Dictionary[String, Variant] = build_context()
 		#print("tried interacting")
-		inventory._dispatch_event_items("interacted",context)
+		inventory._dispatch_event_items("shoot_event",context)
 	
 	# Add the gravity.
 	if not is_on_floor():
