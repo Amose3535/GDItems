@@ -16,6 +16,8 @@ var _context: Dictionary[String, Variant] = {}
 
 func _ready() -> void:
 	inventory.initialize_inventory()
+	_context = build_context()
+	inventory._context = _context
 
 func _physics_process(delta: float) -> void:
 	inventory._physics_process_items(delta)
@@ -29,9 +31,9 @@ func _physics_process(delta: float) -> void:
 	
 	
 	if Input.is_action_just_pressed("interact"):
-		var context: Dictionary[String, Variant] = build_context()
+		_context = build_context()
 		#print("tried interacting")
-		inventory._dispatch_event_items("shoot_event",context)
+		inventory._dispatch_event_items("shoot_event",_context)
 	
 	# Add the gravity.
 	if not is_on_floor():

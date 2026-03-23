@@ -24,6 +24,7 @@ var event_cache: Dictionary[String, Array] = {}
 
 var _context: Dictionary[String, Variant] = {}:
 	set(new_context):
+		# If it's the same memory address as the dictionary i already have, skip
 		if new_context == _context: return
 		# Duplicate the given context to prevent collisions with other ItemStacks in the same inventory
 		_context = new_context.duplicate()

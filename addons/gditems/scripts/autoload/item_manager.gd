@@ -28,7 +28,7 @@ func _register_items() -> void:
 
 ## API used to get ALL items in the database
 func get_items() -> Array[Item]:
-	return _item_db.keys()
+	return _item_db.values()
 
 ## API used to get the Item resource with the specified id in the dictionary . Wrapper for ItemManager._item_db.get(id)
 func get_item(id: String) -> Item:

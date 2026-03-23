@@ -25,7 +25,7 @@ var _context: Dictionary[String, Variant] = {}
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	if item_stack == null: item_stack.new()
+	if item_stack == null: item_stack = ItemStack.new()
 	
 	_build_context() # Create a first context
 	_link_item_context() # Link the current context to the item_stack context
