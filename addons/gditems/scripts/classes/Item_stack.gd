@@ -7,6 +7,11 @@ class_name ItemStack
 
 ## The item held by the stack
 @export var item: Item
+	#set(new_item):
+		#if new_item == item: return
+		#item = new_item
+		#_is_cached = false
+		#_cache_components()
 ## How many items are there for that specific item
 @export var amount: int = 1
 ## How many times per second should the ItemStack tick (set it to -1 to be the same as physics process and 0 to not tick)
