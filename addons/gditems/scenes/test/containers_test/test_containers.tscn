@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://b4ck7c21ohfpx"]
+[gd_scene load_steps=20 format=3 uid="uid://b4ck7c21ohfpx"]
 
 [ext_resource type="Script" uid="uid://b7tc36x5w4g7j" path="res://addons/gditems/scenes/test/containers_test/character_body_3d.gd" id="1_7rary"]
 [ext_resource type="Script" uid="uid://7d0cy2jnfwi1" path="res://addons/gditems/scripts/classes/Item_stack.gd" id="2_4tgvp"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://dbyy3ieu5rj8f" path="res://addons/gditems/scripts/classes/item_inventory.gd" id="3_vflic"]
 [ext_resource type="Script" uid="uid://1cshcpejverg" path="res://addons/gditems/scenes/test/containers_test/inventory.gd" id="4_1ntf5"]
 [ext_resource type="PackedScene" uid="uid://dpyhbs2lmabva" path="res://addons/gditems/scenes/test/containers_test/slot.tscn" id="5_4tgvp"]
+[ext_resource type="Script" uid="uid://duenl573ujgm3" path="res://addons/gditems/scripts/classes/hand_item3d.gd" id="5_hf3tq"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_7rary"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -37,6 +38,9 @@ albedo_color = Color(0.45882353, 0.15294118, 0.3019608, 1)
 material = SubResource("StandardMaterial3D_imfpj")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_lnuga"]
+
+[sub_resource type="Resource" id="Resource_femf8"]
+script = ExtResource("2_4tgvp")
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_7rary"]
 frequency = 0.0334
@@ -73,7 +77,10 @@ shape = SubResource("BoxShape3D_lnuga")
 transform = Transform3D(1, 0, 0, 0, 0.7071068, 0.7071068, 0, -0.7071068, 0.7071068, 0, 1.6, 1.9)
 
 [node name="HandMarker" type="Marker3D" parent="CharacterBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.7213497, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.7213497, 0, -0.7)
+script = ExtResource("5_hf3tq")
+item_stack = SubResource("Resource_femf8")
+metadata/_custom_type_script = "uid://duenl573ujgm3"
 
 [node name="UI" type="CanvasLayer" parent="CharacterBody3D"]
 
