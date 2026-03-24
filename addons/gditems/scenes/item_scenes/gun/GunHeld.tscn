@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://d0sg4c0d334dq"]
+
+[ext_resource type="Script" uid="uid://dtx3ya626dxp0" path="res://addons/gditems/scenes/item_scenes/gun/gun_held.gd" id="1_g5tmn"]
+
+[sub_resource type="TextMesh" id="TextMesh_g5tmn"]
+text = "🔫"
+font_size = 40
+
+[node name="GunHeld" type="Node3D"]
+script = ExtResource("1_g5tmn")
+required_signals = Dictionary[StringName, StringName]({
+&"shoot": &"on_shoot"
+})
+metadata/_custom_type_script = "uid://d63cvd7xr834"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("TextMesh_g5tmn")

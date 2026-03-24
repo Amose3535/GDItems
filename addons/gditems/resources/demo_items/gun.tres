@@ -1,17 +1,27 @@
-[gd_resource type="Resource" script_class="Item" load_steps=7 format=3 uid="uid://m74ladiy2x34"]
+[gd_resource type="Resource" script_class="Item" load_steps=10 format=3 uid="uid://m74ladiy2x34"]
 
 [ext_resource type="Script" uid="uid://ct0wnjptf3q8u" path="res://addons/gditems/scripts/classes/item_components/item_component.gd" id="1_msyx7"]
 [ext_resource type="Texture2D" uid="uid://dckb74kd5o6mg" path="res://addons/gditems/assets/images/fuaahh.png" id="2_2av0b"]
+[ext_resource type="Script" uid="uid://boupdcblcg0q3" path="res://addons/gditems/scripts/classes/item_components/ammo_component.gd" id="2_58g51"]
 [ext_resource type="Script" uid="uid://cgxjhi2lbvdij" path="res://addons/gditems/scripts/classes/Item.gd" id="2_mk42v"]
-[ext_resource type="PackedScene" uid="uid://dkgs4n8uy2i1f" path="res://addons/gditems/scenes/item_scenes/gun_dropped.tscn" id="3_2av0b"]
-[ext_resource type="Script" uid="uid://dk35vjhxjf0ts" path="res://addons/gditems/scripts/classes/item_components/hello_event_print.gd" id="3_58g51"]
+[ext_resource type="PackedScene" uid="uid://dkgs4n8uy2i1f" path="res://addons/gditems/scenes/item_scenes/gun/gun_dropped.tscn" id="3_2av0b"]
+[ext_resource type="Script" uid="uid://ceb1q8c4nf08o" path="res://addons/gditems/scripts/classes/item_components/shoot_component.gd" id="3_py2si"]
+[ext_resource type="PackedScene" uid="uid://d0sg4c0d334dq" path="res://addons/gditems/scenes/item_scenes/gun/GunHeld.tscn" id="5_py2si"]
+
+[sub_resource type="Resource" id="Resource_qu1e7"]
+resource_local_to_scene = true
+script = ExtResource("2_58g51")
+type = &"cal_5"
+amount = 15
+max = 15
+metadata/_custom_type_script = "uid://boupdcblcg0q3"
 
 [sub_resource type="Resource" id="Resource_py2si"]
-script = ExtResource("3_58g51")
-listen_events = Array[String](["shoot_event"])
-metadata/_custom_type_script = "uid://dk35vjhxjf0ts"
+script = ExtResource("3_py2si")
+metadata/_custom_type_script = "uid://ceb1q8c4nf08o"
 
 [resource]
+resource_local_to_scene = true
 script = ExtResource("2_mk42v")
 id = "gun"
 name = "Gun"
@@ -20,7 +30,8 @@ flavor_text = "pew"
 rarity = 1
 icon = ExtResource("2_2av0b")
 scenes = Dictionary[String, PackedScene]({
-"drop": ExtResource("3_2av0b")
+"drop": ExtResource("3_2av0b"),
+"hand": ExtResource("5_py2si")
 })
-components = Array[ExtResource("1_msyx7")]([SubResource("Resource_py2si")])
+components = Array[ExtResource("1_msyx7")]([SubResource("Resource_qu1e7"), SubResource("Resource_py2si")])
 metadata/_custom_type_script = "uid://cgxjhi2lbvdij"

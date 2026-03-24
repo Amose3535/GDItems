@@ -3,6 +3,7 @@ extends CharacterBody3D
 
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
+@onready var hand_marker: Marker3D = $HandMarker
 
 @export var inventory: ItemInventory = ItemInventory.new()
 @export var selected_index: int = 0:

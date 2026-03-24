@@ -21,6 +21,7 @@ var _is_cached: bool = false
 
 var ticking_cache: Array[TickingComponent] = []
 var event_cache: Dictionary[String, Array] = {}
+var data_cache: Array[DataComponent] = []
 
 var _context: Dictionary[String, Variant] = {}:
 	set(new_context):
@@ -48,6 +49,9 @@ func _physics_process_item(delta: float) -> void:
 	if _internal_time >= threshold && should_tick:
 		_internal_time = ((_internal_time - threshold) if threshold > 0 else 0.000001)
 		_cache_components()
+		
+		if !_context.has(Item.CONTEXT_STACK): _context[Item.CONTEXT_STACK] = self
+		
 		for component:TickingComponent in ticking_cache:
 			component.execute(_context)
 
@@ -87,6 +91,10 @@ func _cache_components() -> void:
 	# Cache event components
 	if event_cache.is_empty():
 		_cache_event_components()
+	
+	# Cache data component
+	if data_cache.is_empty():
+		_cache_data_components()
 
 ## Caches TickingComponents of the relative Item. Whenever a new resource is created or it's processing the components of the item for the first time, it's gonna save the ticking components into an array and process them if there's any. For this reason, the lesser the amount of items which require a ticking component, the better.
 func _cache_ticking_components() -> void:
@@ -96,7 +104,7 @@ func _cache_ticking_components() -> void:
 		if component is TickingComponent:
 			ticking_cache.append(component)
 
-## Caches EventComponents of the relative Item. Whenever a new resource is created or it's processing the components of the item for the first time, it's gonna save the event components into an array and process them during the corresponding event.
+## Caches EventComponents of the relative Item. Whenever a new resource is created or it's processing the components of the item for the first time, it's gonna save the event components into a dict and process them during the corresponding event.
 func _cache_event_components() -> void:
 	if item == null: return # Redundant check
 	var item_components: Array[ItemComponent] = item.components
@@ -105,4 +113,12 @@ func _cache_event_components() -> void:
 			for event:String in component.listen_events:
 				if !event_cache.has(event): event_cache[event] = []
 				event_cache[event].append(component)
+
+## Caches DataComponent(s) of the relative Item. Whenever a new resource is created or it's processinf the componetns of the itme for the first time, it's gonna save the data components into an array. Usually these don't get processed automatically since they lack the required execute() function
+func _cache_data_components() -> void:
+	if item == null: return
+	var item_components: Array[ItemComponent] = item.components
+	for component:ItemComponent in item_components:
+		if component is DataComponent:
+			data_cache.append(component)
 #endregion
