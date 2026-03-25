@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://b4ck7c21ohfpx"]
+[gd_scene load_steps=22 format=3 uid="uid://b4ck7c21ohfpx"]
 
 [ext_resource type="Script" uid="uid://b7tc36x5w4g7j" path="res://addons/gditems/scenes/test/containers_test/character_body_3d.gd" id="1_7rary"]
 [ext_resource type="Script" uid="uid://7d0cy2jnfwi1" path="res://addons/gditems/scripts/classes/Item_stack.gd" id="2_4tgvp"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://duenl573ujgm3" path="res://addons/gditems/scripts/classes/hand_item3d.gd" id="5_hf3tq"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_7rary"]
+sky_top_color = Color(0.40014318, 0.5454439, 0.7311738, 1)
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
 ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
 
@@ -21,26 +22,36 @@ sky = SubResource("Sky_lnuga")
 tonemap_mode = 2
 
 [sub_resource type="Resource" id="Resource_23lyh"]
+resource_local_to_scene = true
 script = ExtResource("2_4tgvp")
 item = ExtResource("3_hf3tq")
 metadata/_custom_type_script = "uid://7d0cy2jnfwi1"
 
 [sub_resource type="Resource" id="Resource_hf3tq"]
+resource_local_to_scene = true
 script = ExtResource("3_vflic")
 item_array = Array[ExtResource("2_4tgvp")]([null, SubResource("Resource_23lyh"), null, null, null])
 slot_amount = 5
 metadata/_custom_type_script = "uid://dbyy3ieu5rj8f"
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_imfpj"]
-albedo_color = Color(0.45882353, 0.15294118, 0.3019608, 1)
+albedo_color = Color(0.45882353, 1, 0.3019608, 1)
 
-[sub_resource type="BoxMesh" id="BoxMesh_7rary"]
+[sub_resource type="CylinderMesh" id="CylinderMesh_23lyh"]
 material = SubResource("StandardMaterial3D_imfpj")
+height = 1.0
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_lnuga"]
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_femf8"]
+height = 1.0
 
 [sub_resource type="Resource" id="Resource_femf8"]
 script = ExtResource("2_4tgvp")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hf3tq"]
+albedo_color = Color(1, 1, 0, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_hf3tq"]
+material = SubResource("StandardMaterial3D_hf3tq")
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_7rary"]
 frequency = 0.0334
@@ -68,19 +79,24 @@ script = ExtResource("1_7rary")
 inventory = SubResource("Resource_hf3tq")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D"]
-mesh = SubResource("BoxMesh_7rary")
+mesh = SubResource("CylinderMesh_23lyh")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
-shape = SubResource("BoxShape3D_lnuga")
+shape = SubResource("CylinderShape3D_femf8")
 
 [node name="Camera3D" type="Camera3D" parent="CharacterBody3D"]
 transform = Transform3D(1, 0, 0, 0, 0.7071068, 0.7071068, 0, -0.7071068, 0.7071068, 0, 1.6, 1.9)
 
 [node name="HandMarker" type="Marker3D" parent="CharacterBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.7213497, 0, -0.7)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8786503, 0, -0.39999998)
 script = ExtResource("5_hf3tq")
 item_stack = SubResource("Resource_femf8")
 metadata/_custom_type_script = "uid://duenl573ujgm3"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D/HandMarker"]
+transform = Transform3D(2.502998e-16, 5.726192e-09, -0.131, 0.131, -5.7261915e-09, 0, -5.7261915e-09, -0.131, -5.726192e-09, 0, 0, 0)
+mesh = SubResource("CylinderMesh_hf3tq")
+skeleton = NodePath("../../..")
 
 [node name="UI" type="CanvasLayer" parent="CharacterBody3D"]
 

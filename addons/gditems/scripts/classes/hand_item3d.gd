@@ -11,9 +11,10 @@ class_name HandItem3D
 ## The ItemStack of this WorldItem3D
 @export var item_stack: ItemStack = null:
 	set(new_stack):
+		#var msg: String = ("New stack: {amount}|{item}".format({"amount":new_stack.amount,"item":new_stack.item.name}) if new_stack != null && new_stack.item != null else "New stack: EMPTY"); print(msg)
 		# Skip when the stack i'm trying to assign is the same as the current one
 		if new_stack == item_stack: return
-		# If the item node is instantiate, delete it, clear it, then assign the new stack 
+		# If the item node is instantiated, delete it, clear it, then assign the new stack 
 		_reset_item_scene()
 		item_stack = new_stack
 		_instantiate_item_scene()
@@ -93,11 +94,17 @@ func _connect_signals() -> void:
 	# Cycle in every component of the item
 	for component in item_components:
 		for _signal in signals_dict:
+			#print("Checking for signal {signal} in component {component}".format({"signal":_signal,"component":component}))
 			var _function_name:StringName = signals_dict[_signal]
-			if !component.has_signal(_signal): continue
-			if !_item_node.has_method(_function_name): continue
+			if !component.has_signal(_signal):
+				#print("Component {component} is missing signal {signal}".format({"signal":_signal,"component":component}))
+				continue
+			if !_item_node.has_method(_function_name):
+				#print("Item scene node {node} is missing function {function}".format({"node":_item_node.name,"function":_function_name}))
+				continue
 			# Connect the component signal to the item node callable
 			var _callable: Callable = Callable(_item_node, _function_name)
+			#print("Connecting signal {signal} to function {function}".format({"signal":_signal,"function":_function_name}))
 			component.connect(_signal,_callable)
 	
 
@@ -124,4 +131,5 @@ func _disconnect_signals() -> void:
 			# Check if the connection exists before disconnecting
 			if !component.is_connected(_signal,_callable): continue
 			# Disconnect the component signal to the item node callable
+			#print("Disconnecting signal {signal} from function {function}".format({"signal":_signal,"function":_function_name}))
 			component.disconnect(_signal,_callable)

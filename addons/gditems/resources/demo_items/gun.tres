@@ -17,7 +17,10 @@ max = 15
 metadata/_custom_type_script = "uid://boupdcblcg0q3"
 
 [sub_resource type="Resource" id="Resource_py2si"]
+resource_local_to_scene = true
 script = ExtResource("3_py2si")
+needs_bullets = false
+listen_events = Array[String](["use_event"])
 metadata/_custom_type_script = "uid://ceb1q8c4nf08o"
 
 [resource]

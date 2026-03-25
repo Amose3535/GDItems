@@ -52,3 +52,7 @@ func _dispatch_event_items(event_name: String, event_context: Dictionary[String,
 		
 		item_context[Item.CONTEXT_MODE] = (Item.ITEM_MODE_HELD if item_index == selected_index else Item.ITEM_MODE_CONTAINER)
 		item._dispatch_event(event_name, item_context)
+
+## This public function (acts as API) lets any script get the REFERENCE of an item at a certain index. Pay attention: REFERENCE, NOT VALUE.
+func get_item_stack(index: int) -> ItemStack:
+	return item_array[index]
