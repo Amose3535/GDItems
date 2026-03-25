@@ -82,6 +82,12 @@ For a more in-depth explanation keep reading the following text.
 - Unlike its brothers TickingComponent and EventComponent, this component lacks the execute(context) function.
 - Meant to be used as data collection / interface implementation
 
+### ItemManager (Autoload)
+- It's an autoload added at addon initialization
+- Registers items into an item database formatted like item_id:item_resource
+- Offers API for easy retrieval of item definitions
+- Open for modding since you can specify paths different from the ones in the project directory
+
 ---
 ## What is context??
 Well, on its own context doesn't mean that much, but in this context (pun intended) it's meant to be used as all the useful information that items need to trigger their execution in different ways.
