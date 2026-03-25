@@ -77,6 +77,11 @@ For a more in-depth explanation keep reading the following text.
 - It's a component designed to run only when it recieves an event (a string of characters).
 - It has a property called "listen_events" which is the list of all events which this component should listen for. It doesn't do anything on its own and the developer should specify how this list works. By design, it was though the be used as a list where ONLY ONE event among the list is needed to trigger execution, however developers should feel free to edit the architecture to allow for multiple-events-required architecture.
 
+### DataComponent
+- Inherits from ItemComponent.
+- Unlike its brothers TickingComponent and EventComponent, this component lacks the execute(context) function.
+- Meant to be used as data collection / interface implementation
+
 ---
 ## What is context??
 Well, on its own context doesn't mean that much, but in this context (pun intended) it's meant to be used as all the useful information that items need to trigger their execution in different ways.
