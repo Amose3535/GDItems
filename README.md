@@ -13,9 +13,9 @@ A simple godot addon aimed to be used as a starting point to develop items in go
 It's easy. Really (I put a lot of effort into making items and containers in an intuitive and flexible way)!
 
 1) Create a new Item resource
-2) Compile the form-like fields in the tab that appears when the "your_item.tres" opens in the inspector
-2.a) If your item appears in the world make sure that the proper scenes are set up in the scenes array in your item resource.
-2.b) If your item has behavior make sure to create and add your custom component to your item resource (if the resource is shared among verious items it's a good idea to make it local to that resource in order not to trigger unwanted behavior from other items with the same resource).
+2) Compile the form-like fields in the tab that appears when the "your_item.tres" opens in the inspector.[br]
+2.a) If your item appears in the world make sure that the proper scenes are set up in the scenes array in your item resource.[br]
+2.b) If your item has behavior make sure to create and add your custom component to your item resource (if the resource is shared among verious items it's a good idea to make it local to that resource in order not to trigger unwanted behavior from other items with the same resource).[br]
 3) Add your item in the world using WorldItem3D or to an inventory using ItemContainer / ItemInventory and you're good to go!
 
 To have a general overview of what each class does, make sure to read the in-editor documentation of each class.
