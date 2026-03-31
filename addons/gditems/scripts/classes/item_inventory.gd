@@ -39,10 +39,10 @@ func _dispatch_event_items(event_name: String, event_context: Dictionary[String,
 	# If no such event is present in the active item stacks, skip
 	if !_active_event_stacks.has(event_name): return
 	
-	# Add event name to the context passed to the item. Could be redundant but adds strength to the code in case of future refactorings
-	if !event_context.has(Item.CONTEXT_EVENT): event_context[Item.CONTEXT_EVENT] = event_name
 	# Cache and edit context to pass to every item
 	var item_context: Dictionary[String, Variant] = event_context.duplicate(false)
+	# Add event name to the context passed to the item. Could be redundant but adds strength to the code in case of future refactorings
+	if !item_context.has(Item.CONTEXT_EVENT): item_context[Item.CONTEXT_EVENT] = event_name
 	
 	# Finally call the dispatch function of every item with the proper event context
 	for item:ItemStack in _active_event_stacks[event_name]:
