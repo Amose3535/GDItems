@@ -31,7 +31,8 @@ func _physics_process_items(delta: float) -> void:
 		item_context[Item.CONTEXT_MODE] = (Item.ITEM_MODE_HELD if item_index == selected_index else Item.ITEM_MODE_CONTAINER)
 		
 		# Set context IFF the ItemStack's context is different, no need to set the same context over and over
-		if item._context != item_context: item._context = item_context
+		#if item._context != item_context:
+		item._context = item_context
 		item._physics_process_item(delta)
 
 ## Function used to propagate events onto items of such container
@@ -51,6 +52,7 @@ func _dispatch_event_items(event_name: String, event_context: Dictionary[String,
 		var item_index: int = item_array.find(item)
 		
 		item_context[Item.CONTEXT_MODE] = (Item.ITEM_MODE_HELD if item_index == selected_index else Item.ITEM_MODE_CONTAINER)
+		item._context = item_context
 		item._dispatch_event(event_name, item_context)
 
 ## This public function (acts as API) lets any script get the REFERENCE of an item at a certain index. Pay attention: REFERENCE, NOT VALUE.

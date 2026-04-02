@@ -117,7 +117,8 @@ func _physics_process_items(delta: float) -> void:
 	for item:ItemStack in _active_ticking_stacks:
 		if item == null: continue
 		# Set context IFF the ItemStack's context is different, no need to set the same context over and over
-		if item._context != item_context: item._context = item_context
+		#if item._context != item_context:
+		item._context = item_context
 		item._physics_process_item(delta)
 
 ## Function used to propagate events onto items of such container
@@ -135,6 +136,7 @@ func _dispatch_event_items(event_name: String, event_context: Dictionary[String,
 	# Cycle through the items in the active event cache
 	for item:ItemStack in _active_event_stacks[event_name]:
 		if item == null: continue
+		item._context = item_context
 		item._dispatch_event(event_name, item_context)
 
 

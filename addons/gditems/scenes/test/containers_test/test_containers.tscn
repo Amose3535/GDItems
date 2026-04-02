@@ -1,7 +1,7 @@
 [gd_scene load_steps=22 format=3 uid="uid://b4ck7c21ohfpx"]
 
 [ext_resource type="Script" uid="uid://b7tc36x5w4g7j" path="res://addons/gditems/scenes/test/containers_test/character_body_3d.gd" id="1_7rary"]
-[ext_resource type="Script" uid="uid://7d0cy2jnfwi1" path="res://addons/gditems/scripts/classes/Item_stack.gd" id="2_4tgvp"]
+[ext_resource type="Script" uid="uid://yrb4shgvlekn" path="res://addons/gditems/scripts/classes/item_stack.gd" id="2_hf3tq"]
 [ext_resource type="Resource" uid="uid://m74ladiy2x34" path="res://addons/gditems/resources/demo_items/gun.tres" id="3_hf3tq"]
 [ext_resource type="Script" uid="uid://dbyy3ieu5rj8f" path="res://addons/gditems/scripts/classes/item_inventory.gd" id="3_vflic"]
 [ext_resource type="Script" uid="uid://1cshcpejverg" path="res://addons/gditems/scenes/test/containers_test/inventory.gd" id="4_1ntf5"]
@@ -23,15 +23,15 @@ tonemap_mode = 2
 
 [sub_resource type="Resource" id="Resource_23lyh"]
 resource_local_to_scene = true
-script = ExtResource("2_4tgvp")
+script = ExtResource("2_hf3tq")
 item = ExtResource("3_hf3tq")
-metadata/_custom_type_script = "uid://7d0cy2jnfwi1"
+metadata/_custom_type_script = "uid://yrb4shgvlekn"
 
 [sub_resource type="Resource" id="Resource_hf3tq"]
 resource_local_to_scene = true
 script = ExtResource("3_vflic")
-item_array = Array[ExtResource("2_4tgvp")]([null, SubResource("Resource_23lyh"), null, null, null])
-slot_amount = 5
+item_array = Array[ExtResource("2_hf3tq")]([SubResource("Resource_23lyh"), null])
+slot_amount = 2
 metadata/_custom_type_script = "uid://dbyy3ieu5rj8f"
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_imfpj"]
@@ -45,7 +45,7 @@ height = 1.0
 height = 1.0
 
 [sub_resource type="Resource" id="Resource_femf8"]
-script = ExtResource("2_4tgvp")
+script = ExtResource("2_hf3tq")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hf3tq"]
 albedo_color = Color(1, 1, 0, 1)

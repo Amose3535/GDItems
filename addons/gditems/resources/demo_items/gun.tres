@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://ct0wnjptf3q8u" path="res://addons/gditems/scripts/classes/item_components/item_component.gd" id="1_msyx7"]
 [ext_resource type="Texture2D" uid="uid://dckb74kd5o6mg" path="res://addons/gditems/assets/images/fuaahh.png" id="2_2av0b"]
 [ext_resource type="Script" uid="uid://boupdcblcg0q3" path="res://addons/gditems/scripts/classes/item_components/ammo_component.gd" id="2_58g51"]
-[ext_resource type="Script" uid="uid://cgxjhi2lbvdij" path="res://addons/gditems/scripts/classes/Item.gd" id="2_mk42v"]
+[ext_resource type="Script" uid="uid://cgxjhi2lbvdij" path="res://addons/gditems/scripts/classes/item.gd" id="2_mk42v"]
 [ext_resource type="PackedScene" uid="uid://dkgs4n8uy2i1f" path="res://addons/gditems/scenes/item_scenes/gun/gun_dropped.tscn" id="3_2av0b"]
 [ext_resource type="Script" uid="uid://ceb1q8c4nf08o" path="res://addons/gditems/scripts/classes/item_components/shoot_component.gd" id="3_py2si"]
 [ext_resource type="PackedScene" uid="uid://d0sg4c0d334dq" path="res://addons/gditems/scenes/item_scenes/gun/GunHeld.tscn" id="5_py2si"]
